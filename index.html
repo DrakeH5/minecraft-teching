@@ -4,7 +4,7 @@
     <script src="./three.js-dev/build/three.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.2.0/lib/p5.js"></script>
     <script>
-
+function setup(){
       const wood = [
         "peru",
         0
@@ -30,17 +30,20 @@
         var totalCubes = 100;
         for(var i=0; i<Math.sqrt(totalCubes); i++){
           for(var j=0; j<Math.sqrt(totalCubes); j++){
-            var geometry = new THREE.BoxGeometry(1, 1, 1)
-            var material = new THREE.MeshLambertMaterial({color: wood[0]})
-            var cube1 = new THREE.Mesh(geometry, material)
-            cube1.position.x  = i;
-            cube1.position.z = j;
-            scene.add(cube1)
+            for(var height = 0; height <= Math.ceil((noise(i*0.05, height*0.05, j*0.05) * 30) + 2); height++){
+              var geometry = new THREE.BoxGeometry(1, 1, 1)
+              var material = new THREE.MeshLambertMaterial({color: wood[0]})
+              var cube1 = new THREE.Mesh(geometry, material)
+              cube1.position.x  = i;
+              cube1.position.z = j;
+              cube1.position.y = height;
+              scene.add(cube1)
+            }
           }
       }
 
       var light = new THREE.PointLight(0xFFFFFF, 1, 500);
-      light.position.set(0, 10, 0);
+      light.position.set(0, 100, 0);
       scene.add(light)
 
         var render = function() {
@@ -89,7 +92,7 @@ document.body.onmousemove = function(evt) {
       this.camera.position.y-=1;
     }
   };
-
+}
     </script>
   </body>
 </html>
