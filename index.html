@@ -46,7 +46,14 @@ function setup(){
       light.position.set(0, 100, 0);
       scene.add(light)
 
+      var raycaster = new THREE.Raycaster();
+      var downDirection = new THREE.Vector3(0, -1, 0);
         var render = function() {
+          raycaster.set(camera.position, downDirection)
+          const intersects = raycaster.intersectObjects(scene.children);
+          if(intersects.length > 0 && intersects[0].distance > 3){
+            camera.position.y-=0.2;
+          }
           requestAnimationFrame(render);
           renderer.render(scene, camera); 
         }
