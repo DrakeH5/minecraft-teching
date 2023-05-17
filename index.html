@@ -176,6 +176,16 @@ document.addEventListener("click", function(evt){
             scene.add(block);
     }
   }
+  if(evt.button == 0){
+    var direction = new THREE.Vector3();
+    camera.getWorldDirection( direction );
+    raycaster.set(camera.position, direction);
+    const intersects = raycaster.intersectObjects(scene.children)
+    if(intersects.length > 0){
+      var face = intersects[0].object;
+      scene.remove(face)
+    }
+  }
 })
 
 
